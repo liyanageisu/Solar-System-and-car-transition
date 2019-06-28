@@ -1,0 +1,180 @@
+<html>
+<head>
+	<title>car</title>
+	<style>canvas { width: 100%; height: 100% }</style>
+</head>
+<body>
+	
+	<script src="three.min.js"></script>
+	<script src="OrbitControls.js"></script>
+	<script src="LegacyJSONLoader.js"></script>
+	<script>
+
+	var scene = new THREE.Scene();
+	var camera = new THREE.PerspectiveCamera(55, window.innerWidth/window.innerHeight, 1, 50000);
+	var renderer = new THREE.WebGLRenderer();
+	renderer.setSize(window.innerWidth, window.innerHeight);
+	document.body.appendChild(renderer.domElement);
+
+	var controls = new THREE.OrbitControls( camera, renderer.domElement );
+
+	const backgroundimage = new THREE.TextureLoader();
+	const bgimage = backgroundimage.load('1.jpg');
+	scene.background = bgimage;
+
+	var pgeometry = new THREE.PlaneGeometry(150000,100000,60);
+	var pmaterial = new THREE.MeshBasicMaterial({map:new THREE.TextureLoader().load('IMAG0023.jpg'), wireframe:false, side:THREE.DoubleSide});
+	var plane = new THREE.Mesh(pgeometry,pmaterial);
+	scene.add(plane);
+	plane.rotateX(4.71239);
+
+	var rgeometry = new THREE.PlaneGeometry(150000,1200,60);
+	var rmaterial = new THREE.MeshBasicMaterial({map:new THREE.TextureLoader().load('alphaMap.jpg'), wireframe:false, side:THREE.DoubleSide});
+	var road = new THREE.Mesh(rgeometry,rmaterial);
+	road.position.set(0,0,4);
+	plane.add(road);
+	
+
+	var bd_geometry = new THREE.BoxBufferGeometry(800, 200, 350 );
+	var bd_material =new THREE.MeshBasicMaterial({map:new THREE.TextureLoader().load('body.jpg'), wireframe:false, side:THREE.DoubleSide});
+	var bd = new THREE.Mesh(bd_geometry, bd_material);
+	bd.position.set(0,0,192);
+	plane.add(bd);
+	bd.rotateX(-4.71239);
+
+	var roof_geometry = new THREE.BoxBufferGeometry(300, 150, 300 );
+	var roof_material = new THREE.MeshBasicMaterial({map:new THREE.TextureLoader().load('body.jpg'), wireframe:false, side:THREE.DoubleSide});
+	var roof = new THREE.Mesh(roof_geometry, roof_material);
+	roof.position.set(0,175,0);
+	bd.add(roof);
+
+	var wheel1_geometry = new THREE.CylinderGeometry( 100, 100, 50, 32 );
+	var wheel1_material =  new THREE.MeshBasicMaterial({map:new THREE.TextureLoader().load('centre_tyre.png'), wireframe:false, side:THREE.DoubleSide});
+	var wheel1 = new THREE.Mesh( wheel1_geometry, wheel1_material );
+	wheel1.position.set(-230,-100,170);
+	bd.add(wheel1);
+	wheel1.rotateX(4.71239);
+
+	var wheel2 = new THREE.Mesh( wheel1_geometry, wheel1_material );
+	wheel2.position.set(-230,-100,-170);
+	bd.add(wheel2);
+	wheel2.rotateX(4.71239);
+
+	var wheel3 = new THREE.Mesh( wheel1_geometry, wheel1_material );
+	wheel3.position.set(230,-100,-170);
+	bd.add(wheel3);
+	wheel3.rotateX(4.71239);
+
+	var wheel4 = new THREE.Mesh( wheel1_geometry, wheel1_material );
+	wheel4.position.set(230,-100,170);
+	bd.add(wheel4);
+	wheel4.rotateX(4.71239);
+
+	var breakLight_geometry = new THREE.BoxBufferGeometry(70, 40, 100 );
+	var breakLight_material = new THREE.MeshBasicMaterial({map:new THREE.TextureLoader().load('bl.jpg'), wireframe:false, side:THREE.DoubleSide});
+	var breakLight = new THREE.Mesh(breakLight_geometry, breakLight_material);
+	breakLight.position.set(-370,20,100);
+	bd.add(breakLight);
+	var breakLight2 = new THREE.Mesh(breakLight_geometry, breakLight_material);
+	breakLight2.position.set(-370,20,-100);
+	bd.add(breakLight2);
+
+	var Light1_geometry = new THREE.SphereGeometry( 70, 70, 20 );
+	var Light1_material =  new THREE.MeshBasicMaterial({map:new THREE.TextureLoader().load('li.jpg'), wireframe:false, side:THREE.DoubleSide});
+	var Light1 = new THREE.Mesh( Light1_geometry, Light1_material );
+	Light1.position.set(355,20,100);
+	bd.add(Light1);
+	Light1.rotateZ(1.5708);
+	var Light2 = new THREE.Mesh( Light1_geometry, Light1_material );
+	Light2.position.set(355,20,-100);
+	bd.add(Light2);
+	Light2.rotateZ(1.5708);
+
+	var bilding1_geometry = new THREE.BoxBufferGeometry(1500, 2000,700 );
+	var bilding1_material = new THREE.MeshBasicMaterial({map:new THREE.TextureLoader().load('buildingshighrise0297-4-l.jpg'), wireframe:false, side:THREE.DoubleSide});
+	var bilding1 = new THREE.Mesh(bilding1_geometry, bilding1_material);
+	bilding1.position.set(5000,1500,1000);
+	plane.add(bilding1);
+	bilding1.rotateX(1.5708);
+
+
+	var bilding2_geometry = new THREE.BoxBufferGeometry(2500, 5000,2000 );
+	var bilding2_material = new THREE.MeshBasicMaterial({map:new THREE.TextureLoader().load('4f1e418393c11d2d4a949e919d364d67.jpg'), wireframe:false, side:THREE.DoubleSide});
+	var bilding2 = new THREE.Mesh(bilding2_geometry, bilding2_material);
+	bilding2.position.set(10000,2500,2500);
+	plane.add(bilding2);
+	bilding2.rotateX(1.5708);
+
+	var bilding3_geometry = new THREE.BoxBufferGeometry(2500, 2000,700 );
+	var bilding3_material = new THREE.MeshBasicMaterial({map:new THREE.TextureLoader().load('buildingshighrise0297-4-l (1).jpg'), wireframe:false, side:THREE.DoubleSide});
+	var bilding3 = new THREE.Mesh(bilding3_geometry, bilding3_material);
+	bilding3.position.set(20000,2500,1000);
+	plane.add(bilding3);
+	bilding3.rotateX(1.5708);
+
+
+	var bilding4_geometry = new THREE.BoxBufferGeometry(2500, 5000,2000 );
+	var bilding4_material = new THREE.MeshBasicMaterial({map:new THREE.TextureLoader().load('800px_COLOURBOX3477131.jpg'), wireframe:false, side:THREE.DoubleSide});
+	var bilding4 = new THREE.Mesh(bilding4_geometry, bilding4_material);
+	bilding4.position.set(15000,2500,2500);
+	plane.add(bilding4);
+	bilding4.rotateX(1.5708);
+
+	var loader = new THREE.ObjectLoader();
+
+	loader.load(
+		'coconut-tree.json',function(obj){
+			obj.position.set(15000,-1200,0);
+			obj.rotateX(1.5708);
+			plane.add(obj);
+		}
+	);
+
+	loader.load(
+		'coconut-tree.json',function(obj1){
+			obj1.position.set(10000,-1200,0);
+			obj1.rotateX(1.5708);
+			plane.add(obj1);
+		}
+	);
+
+	loader.load(
+		'coconut-tree.json',function(obj2){
+			obj2.position.set(100,-1200,0);
+			obj2.rotateX(1.5708);
+			plane.add(obj2);
+		}
+	);
+
+		loader.load(
+		'coconut-tree.json',function(obj3){
+			obj3.position.set(5000,1200,0);
+			obj3.rotateX(1.5708);
+			plane.add(obj3);
+		}
+	);
+
+
+
+	camera.position.z=3000;
+	camera.position.y=400;
+	camera.position.x=1600;
+
+	function render() {
+	requestAnimationFrame(render);
+	wheel1.rotation.y += 0.08;
+	wheel2.rotation.y += 0.08;
+	wheel3.rotation.y += 0.08;
+	wheel4.rotation.y += 0.08;
+	bd.translateX(10);
+	scene.translateX(-10);
+	renderer.render(scene, camera);
+	};
+
+
+
+	render();
+
+	</script>
+</body>
+</html>
